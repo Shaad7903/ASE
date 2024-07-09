@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce Site</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .product { border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; }
+        .product button { cursor: pointer; }
+        #cart { margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Simple E-commerce Site</h1>
+</header>
+
+<main>
+    <div class="product" data-price="10" data-name="Product 1">
+        <h2>Product 1</h2>
+        <p>$10</p>
+        <button>Add to Cart</button>
+    </div>
+    <div class="product" data-price="20" data-name="Product 2">
+        <h2>Product 2</h2>
+        <p>$20</p>
+        <button>Add to Cart</button>
+    </div>
+</main>
+
+<div id="cart">
+    <h2>Cart</h2>
+    <ul id="cartItems"></ul>
+    <p>Total: $<span id="totalPrice">0</span></p>
+</div>
+
+<footer>
+    <p>Footer Content</p>
+</footer>
+
+<script>
+    const cart = [];
+
+    document.querySelectorAll('.product button').forEach(button => {
+        button.addEventListener('click', function() {
+            const product = this.parentNode;
+            const name = product.getAttribute('data-name');
+            const price = Number(product.getAttribute('data-price'));
+            cart.push({name, price});
+            updateCart();
+        });
+    });
+
+    function updateCart() {
+        const cartItems = document.getElementById('cartItems');
+        cartItems.innerHTML = '';
+        let total = 0;
+        cart.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = `${item.name} - $${item.price}`;
+            cartItems.appendChild(li);
+            total += item.price;
+        });
+        document.getElementById('totalPrice').textContent = total;
+    }
+</script>
+
+</body>
+</html>
